@@ -5,5 +5,9 @@ namespace Translator;
 
 interface Translator
 {
+    /**
+     * @param string $data
+     * @return string
+     */
     public function translate(string $data): string;
 }
