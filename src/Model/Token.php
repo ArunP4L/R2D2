@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+namespace Model;
+
+use RuntimeException;
+
 class Token
 {
     /** @var string */
@@ -12,6 +16,12 @@ class Token
     /** @var string */
     private $scope;
 
+    /**
+     * @param string $accessToken
+     * @param int $expiresIn
+     * @param string $tokenType
+     * @param string $scope
+     */
     private function __construct(string $accessToken, int $expiresIn, string $tokenType, string $scope)
     {
         $this->accessToken = $accessToken;
@@ -20,6 +30,10 @@ class Token
         $this->scope = $scope;
     }
 
+    /**
+     * @param array $data
+     * @return Token
+     */
     static public function buildFromArray(array $data): self
     {
         if(self::hasMissingKeys($data)){
@@ -44,7 +58,14 @@ class Token
         return count (array_filter($keys, function (string $key) use ($data) {
             return !in_array($key, $data);
         })) > 0;
+    }
 
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->accessToken;
     }
 }
 
