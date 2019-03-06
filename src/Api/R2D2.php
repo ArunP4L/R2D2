@@ -3,40 +3,44 @@ declare(strict_types=1);
 
 namespace Api;
 
-use Model\Credentials;
 use Model\ExhaustPort;
 use Model\PrisonLocation;
+use Service\DeathStarClient;
 
 class R2D2 implements AstromechDroid
 {
-    /**
-     * @var Credentials
-     */
-    private $credentials;
+    /** @var DeathStarClient */
+    private $deathStarClient;
 
     /**
-     * R2D2 constructor.
-     * @param Credentials $credentials
+     * @param DeathStarClient $deathStarClient
      */
-    public function __construct(Credentials $credentials)
+    public function __construct(DeathStarClient $deathStarClient)
     {
-        $this->credentials = $credentials;
+        $this->deathStarClient = $deathStarClient;
     }
 
     /**
      * @return PrisonLocation
      */
-    public function getLeiaLocation(): PrisonLocation
+    public function getLeiaLocation(): string
     {
-
+        return json_encode($this->deathStarClient->getLocationOfPrisoner('leia'));
     }
 
     /**
      * @param ExhaustPort $exhaustPort
+     * @return string
      */
-    public function destroyExhaustPortById(ExhaustPort $exhaustPort): void
+    public function destroyExhaustPortById(ExhaustPort $exhaustPort): string
     {
+        $result = $this->deathStarClient->deleteExhaustPortById($exhaustPort);
 
+        if (!$result) {
+            return json_encode(['success' => false]);
+        }
+
+        return json_encode(['success' => true]);
     }
 
 

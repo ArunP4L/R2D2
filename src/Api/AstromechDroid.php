@@ -4,17 +4,17 @@ declare(strict_types=1);
 namespace Api;
 
 use Model\ExhaustPort;
-use Model\PrisonLocation;
 
 interface AstromechDroid
 {
     /**
-     * @return PrisonLocation
+     * @return string
      */
-    public function getLeiaLocation(): PrisonLocation;
+    public function getLeiaLocation(): string;
 
     /**
      * @param ExhaustPort $exhaustPort
+     * @return string
      */
-    public function destroyExhaustPortById(ExhaustPort $exhaustPort): void;
+    public function destroyExhaustPortById(ExhaustPort $exhaustPort): string;
 }

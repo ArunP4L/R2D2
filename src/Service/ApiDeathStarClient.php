@@ -36,6 +36,9 @@ class ApiDeathStarClient implements DeathStarClient
         $this->translator = $translator;
     }
 
+    /**
+     * @return Token
+     */
     private function getToken(): Token
     {
         $response = $this->client->post(
@@ -59,7 +62,7 @@ class ApiDeathStarClient implements DeathStarClient
 
         $body = json_decode((string)$response->getBody(), true);
 
-        return new Token($this->translator->translate($body['access_token']));
+        return new Token($body['access_token']);
     }
 
     /**
@@ -89,6 +92,7 @@ class ApiDeathStarClient implements DeathStarClient
     /**
      * @param string $prisoner
      * @return PrisonLocation
+     * @throws \Exception
      */
     public function getLocationOfPrisoner(string $prisoner): PrisonLocation
     {
@@ -106,6 +110,11 @@ class ApiDeathStarClient implements DeathStarClient
             throw new RuntimeException(sprintf('Unable to obtain prisoner information for %s', $prisoner));
         }
 
-        return PrisonLocation::buildFromArray(json_decode((string)$response->getBody(), true));
+        $body = json_decode((string)$response->getBody(), true);
+
+        return new PrisonLocation(
+            $this->translator->translate($body['cell']),
+            $this->translator->translate($body['block'])
+        );
     }
 }
