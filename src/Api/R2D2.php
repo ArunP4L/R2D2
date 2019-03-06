@@ -25,7 +25,11 @@ class R2D2 implements AstromechDroid
      */
     public function getLeiaLocation(): string
     {
-        return json_encode($this->deathStarClient->getLocationOfPrisoner('leia'));
+        $location = $this->deathStarClient->getLocationOfPrisoner('leia');
+        return json_encode([
+            'cell' => $location->getCell(),
+            'block' => $location->getBlock(),
+        ]);
     }
 
     /**
