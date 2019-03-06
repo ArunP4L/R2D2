@@ -1,7 +1,12 @@
 <?php
 declare(strict_types=1);
 
-class DroidSpeakTranslator
-{
+use Translator\Translator;
 
+class DroidSpeakTranslator implements Translator
+{
+    public function translator(string $data): string
+    {
+        return $data;
+    }
 }
