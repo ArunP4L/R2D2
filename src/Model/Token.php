@@ -54,9 +54,9 @@ class Token
      */
     private static function hasMissingKeys(array $data): bool
     {
-        $keys = ['access_token', 'expires_in', 'token_type', 'scope',];
+        $keys = ["access_token", "expires_in", "token_type", "scope"];
         return count (array_filter($keys, function (string $key) use ($data) {
-            return !in_array($key, $data);
+            return !array_key_exists($key, $data);
         })) > 0;
     }
 

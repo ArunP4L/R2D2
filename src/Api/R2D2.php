@@ -1,8 +1,13 @@
 <?php
 declare(strict_types=1);
 
+namespace Api;
 
-class R2D2 extends AbstractAstromechDroid
+use Model\Credentials;
+use Model\ExhaustPort;
+use Model\PrisonLocation;
+
+class R2D2 implements AstromechDroid
 {
     /**
      * @var Credentials
@@ -23,9 +28,7 @@ class R2D2 extends AbstractAstromechDroid
      */
     public function getLeiaLocation(): PrisonLocation
     {
-        $token = $this->getAuthorizationToken($this->credentials);
 
-        // Make request with token/authorization codes?
     }
 
     /**
@@ -33,9 +36,7 @@ class R2D2 extends AbstractAstromechDroid
      */
     public function destroyExhaustPortById(ExhaustPort $exhaustPort): void
     {
-        $token = $this->getAuthorizationToken($this->credentials);
 
-        // Make request with token/authorization codes?
     }
 
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Service;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Model\Credentials;
 use Model\ExhaustPort;
 use Model\PrisonLocation;
@@ -60,18 +61,22 @@ class ApiDeathStarClient implements DeathStarClient
      */
     public function deleteExhaustPortById(ExhaustPort $port): bool
     {
-        $response = $this->client->delete(
-            sprintf(self::DELETE_EXHAUST_PORT_URI, $port),
-            [
-                'headers' => [
-                    'Authorization' => sprintf('Bearer %s', $this->getToken()),
-                    'Content-Type'  => 'application/json',
-                    'x-torpedoes'   => 2
-                ],
-            ]
-        );
+        try {
+            $this->client->delete(
+                sprintf(self::DELETE_EXHAUST_PORT_URI, $port),
+                [
+                    'headers' => [
+                        'Authorization' => sprintf('Bearer %s', $this->getToken()),
+                        'Content-Type'  => 'application/json',
+                        'x-torpedoes'   => 2
+                    ],
+                ]
+            );
+        } catch (ClientException $exception) {
+            return false;
+        }
 
-        return $response->getStatusCode() === 200;
+        return true;
     }
 
     /**

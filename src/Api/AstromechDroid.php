@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+namespace Api;
+
+use Model\ExhaustPort;
+use Model\PrisonLocation;
+
 interface AstromechDroid
 {
     /**

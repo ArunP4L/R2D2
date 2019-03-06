@@ -14,10 +14,10 @@ class ExhaustPort
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId(): int
+    public function __toString(): string
     {
-        return $this->id;
+        return (string)$this->id;
     }
 }
