@@ -10,6 +10,7 @@ use Model\ExhaustPort;
 use Model\PrisonLocation;
 use Model\Token;
 use RuntimeException;
+use Translator\Translator;
 
 class ApiDeathStarClient implements DeathStarClient
 {
@@ -20,15 +21,19 @@ class ApiDeathStarClient implements DeathStarClient
     private $client;
     /** @var Credentials */
     private $credentials;
+    /** @var Translator */
+    private $translator;
 
     /**
+     * @param Translator $translator
      * @param Client $client
      * @param Credentials $credentials
      */
-    public function __construct(Client $client, Credentials $credentials)
+    public function __construct(Translator $translator, Client $client, Credentials $credentials)
     {
         $this->client = $client;
         $this->credentials = $credentials;
+        $this->translator = $translator;
     }
 
     private function getToken(): Token
@@ -52,7 +57,9 @@ class ApiDeathStarClient implements DeathStarClient
             throw new RuntimeException('Unable to obtain oauth token from deathstar');
         }
 
-        return Token::buildFromArray(json_decode((string)$response->getBody(), true));
+        $body = json_decode((string)$response->getBody(), true);
+
+        return new Token($this->translator->translate($body['access_token']));
     }
 
     /**
