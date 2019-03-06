@@ -5,5 +5,5 @@ namespace Translator;
 
 interface Translator
 {
-    public function translator(string $data): string;
+    public function translate(string $data): string;
 }

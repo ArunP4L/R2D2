@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Translator\Test;
+namespace test;
 
 use PHPUnit\Framework\TestCase;
 use Translator\DroidSpeakTranslator;

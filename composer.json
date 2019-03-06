@@ -1,12 +1,17 @@
 {
-    "name": "gimbo/r2d2",
-    "authors": [
-        {
-            "name": "arun",
-            "email": "gimblett44@gmail.com"
-        }
-    ],
-    "require": {
-        "phpunit/phpunit": "^8.0"
+  "name": "gimbo/r2d2",
+  "authors": [
+    {
+      "name": "arun",
+      "email": "gimblett44@gmail.com"
     }
+  ],
+  "require": {
+    "phpunit/phpunit": "^8.0"
+  },
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  }
 }
