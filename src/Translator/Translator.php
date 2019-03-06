@@ -8,6 +8,7 @@ interface Translator
     /**
      * @param string $data
      * @return string
+     * @throws \Exception
      */
     public function translate(string $data): string;
 }
